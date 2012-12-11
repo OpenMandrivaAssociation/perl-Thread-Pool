@@ -1,20 +1,17 @@
-%define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)
-%define perl_vendorarch %(eval "`%{__perl} -V:installvendorarch`"; echo $installvendorarch)
+%define module_name Thread-Pool
 
-%define real_name Thread-Pool
+Summary:	Group of threads for performing similar jobs
+Name:		perl-%{module_name}
+Version:	0.33
+Release:	2
+License:	Artistic
+Group:		Development/Perl
+URL:		http://search.cpan.org/dist/Thread-Pool/
+Source:		http://www.cpan.org/modules/by-module/Thread/%{module_name}-%{version}.tar.gz
 
-Summary: Group of threads for performing similar jobs
-Name: perl-Thread-Pool
-Version: 0.33
-Release: %mkrel 1
-License: Artistic
-Group: Development/Perl
-URL: http://search.cpan.org/dist/Thread-Pool/
-Source: http://www.cpan.org/modules/by-module/Thread/Thread-Pool-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 BuildArch: noarch
-BuildRequires: perl
-BuildRequires: perl(ExtUtils::MakeMaker)
+BuildRequires:	perl-devel
+BuildRequires:	perl(ExtUtils::MakeMaker)
 
 %description
 The Thread::Pool allows you to set up a group of (worker) threads to
@@ -28,22 +25,19 @@ And then only when threads are enabled with -Dusethreads.  It
 is of no use with any version of Perl before 5.8.0 or without
 threads enabled.
 %prep
-%setup -q -n %{real_name}-%{version}
+%setup -q -n %{module_name}-%{version}
 
 %build
 %{expand: %%define optflags %{optflags} -fPIC}
-CFLAGS="%{optflags}" %{__perl} Makefile.PL INSTALLDIRS="vendor" PREFIX="%{buildroot}%{_prefix}"
-%{__make} %{?_smp_mflags}
+
+CFLAGS="%{optflags}" perl Makefile.PL INSTALLDIRS="vendor" PREFIX="%{buildroot}%{_prefix}"
+%make
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} pure_install
+make pure_install
 
 ### Clean up buildroot
-find %{buildroot} -name .packlist -exec %{__rm} {} \;
-
-%clean
-%{__rm} -rf %{buildroot}
+find %{buildroot} -name .packlist -exec rm {} \;
 
 %files
 %defattr(-, root, root, 0755)
@@ -52,6 +46,10 @@ find %{buildroot} -name .packlist -exec %{__rm} {} \;
 %dir %{perl_vendorlib}/Thread/
 %{perl_vendorlib}/Thread/Pool.pm
 
+
 %changelog
-* Fri Jun 22 2007 Dominik Gehl <gehl@inverse.ca> - 0.32-1 - 7981/dag
-- Initial package.
+* Tue Sep 27 2011 Leonardo Coelho <leonardoc@mandriva.com> 0.33-1mdv2012.0
++ Revision: 701570
+- first mandriva version
+- Created package structure for 'perl-Thread-Pool'.
+
