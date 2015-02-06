@@ -3,7 +3,7 @@
 Summary:	Group of threads for performing similar jobs
 Name:		perl-%{module_name}
 Version:	0.33
-Release:	3
+Release:	4
 License:	Artistic
 Group:		Development/Perl
 URL:		http://search.cpan.org/dist/Thread-Pool/
