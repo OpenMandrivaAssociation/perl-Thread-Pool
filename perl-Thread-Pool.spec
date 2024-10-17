@@ -6,7 +6,7 @@ Version:	0.35
 Release:	1
 License:	Artistic
 Group:		Development/Perl
-URL:		http://search.cpan.org/dist/Thread-Pool/
+URL:		https://search.cpan.org/dist/Thread-Pool/
 Source:		http://www.cpan.org/modules/by-module/Thread/%{module_name}-%{version}.tar.gz
 
 BuildArch: noarch
