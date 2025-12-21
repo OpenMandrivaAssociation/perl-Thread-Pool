@@ -10,6 +10,7 @@ URL:		https://search.cpan.org/dist/Thread-Pool/
 Source:		http://www.cpan.org/modules/by-module/Thread/%{module_name}-%{version}.tar.gz
 
 BuildArch: noarch
+BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl(ExtUtils::MakeMaker)
 
